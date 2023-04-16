@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="" method="post">
+        <input type="text" name="name" placeholder="entre votre prenom"><br>
+
+        <button type="submit">OK</button><br>
+        <button type="reset">Annuler</button>
+    </form>
+
+    <!-- include java script page -->
+    <script src="main.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>facture</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <!-- HTML code for the billing form -->
+  <!-- <form method="post" action="./includes/add-prod.inc.php"> -->
+    
+    <!-- <label for="invoice-number">Invoice Number:</label>
+    <input type="text" id="invoice-number" name="invoice_number" required><br>
+
+    <label for="invoice-date">Date:</label>
+    <input type="date" id="invoice-date" name="invoice_date" required><br>
+<hr>
+<div class="info client">
+  <label for="customer-name">Client id:</label>
+  <input type="text" id="customer-name" name="customer_name" required>
+  
+  <label for="billing-address">client Name:</label>
+  <input id="billing-address" name="billing_address" required></input>
+
+  <label for="billing-address">client Address:</label>
+  <input id="billing-address" name="billing_address" required></input><br>
+  <button type="submit">refresh</button>
+</div>
+<div class="info produit">
+  <label for="product-description">Product Id:</label>
+    <?php
+    // include "./includes/dbh.inc.php";
+    // echo "<select>";
+    // Query the products table
+    // $sql = "SELECT prodId FROM products";
+    // $result = mysqli_query($conx, $sql);
+    
+    // Print product IDs as options
+    // if(mysqli_num_rows($result) > 0) {
+    //     while($row = mysqli_fetch_assoc($result)) {
+    //         echo "<option value='" . $row['prodId'] . "'>" . $row['prodId'] . "</option>";
+    //     }
+    // }
+    // echo "</select>";
+    ?>
+
+
+  <label for="product-description">Product Description:</label>
+  <input type="text" id="product-description" name="product_description" required>
+  
+  <label for="product-quantity">Product Quantity:</label>
+  <input type="number" id="product-quantity" name="product_quantity" required>
+  
+  <label for="product-price">Product Price:</label>
+  <input type="number" id="product-price" name="product_price" required>
+  
+  <label for="total-amount">quantiter:</label>
+  <input type="text" id="total-amount" name="total_amount" readonly><br>
+  <button type="submit">refresh</button>
+</div>
+  
+  <button type="submit">Generate Invoice</button> -->
+
+  <?php
+      //include "./includes/dbh.inc.php";
+        // Query the products table and display options
+        // $sql = "SELECT prodId, prodName ,quantiter FROM products";
+        // $result = mysqli_query($conx, $sql);
+        // $count = 0;
+        // while($row = mysqli_fetch_assoc($result)) {
+        //   echo '<input type="checkbox" name='.$row['prodName'].' id=""><br>';
+        //     echo '<label for='.$row['prodName'].'>'.$row['prodName'].'</label>';
+        //     echo '<label for='.$row['prodName'].'>'.'quantiter disponible'.'</label>';
+        //     echo '<input type="Number" value='.$row['quantiter'].' disabled id=""><br>';
+        //     echo '<label for='.$row['prodName'].'>'.' entre your quantiter'.'</label>';
+        //     echo '<input type="Number" name='.$row['quantiter'].'  id=""><br>';
+        //     $count++;
+        // }
+        // ?>
+        <!-- <button type="submit">submit</button> -->
+
+        <form action="./includes/facture.inc.php" method="POST">
+    <?php
+    include "./includes/dbh.inc.php";
+    // Query the products table and display options
+    $sql = "SELECT prodId, prodName ,quantiter FROM products";
+    $result = mysqli_query($conx, $sql);
+    $count = 0;
+    while($row = mysqli_fetch_assoc($result)) {
+        echo '<input type="checkbox" name="products['.$row['prodId'].'][selected]" id="product_'.$row['prodId'].'" value="'.$row['prodId'].'">';
+        echo '<label for="product_'.$row['prodId'].'">'.$row['prodName'].'</label>';
+        echo '<label for="product_'.$row['prodId'].'"> - Quantité disponible: '.$row['quantiter'].'</label>';
+        echo '<label for="product_'.$row['prodId'].'"> - Entrez la quantité: </label>';
+        echo '<input type="number" name="products['.$row['prodId'].'][quantity]" id="product_'.$row['prodId'].'_quantity"><br>';
+        $count++;
+    }
+    ?>
+    <button type="submit" name="refresh">Submit</button>
+</form>
+
+  <!-- <input type="checkbox" name="" id=""> -->
+  <!-- <label for=""></label> -->
+<!-- </form> -->
+
+
+
+</body>
+</html>
